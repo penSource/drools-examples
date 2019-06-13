@@ -8,7 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>spring-boot-drools</name>
+	<name>spring-boot-drools-db</name>
 	<description>Demo project for Spring Boot and drools</description>
 
 	<properties>
@@ -17,6 +17,7 @@
 		<java.version>1.7</java.version>
 		<spring.version>1.5.4.RELEASE</spring.version>
 		<drools.version>6.5.0.Final</drools.version>
+		<!--<drools.version>7.13.0.Final</drools.version>-->
 	</properties>
 
 	<dependencyManagement>
@@ -79,6 +80,31 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.3.2</version>
+		</dependency>
+		<!-- API Swagger begin -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<scope>compile</scope>
+			<version>2.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<scope>compile</scope>
+			<version>2.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.xiaoymin</groupId>
+			<artifactId>swagger-bootstrap-ui</artifactId>
+			<version>1.8.6</version>
+		</dependency>
+		<!-- API Swagger end -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.20</version>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 

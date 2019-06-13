@@ -6,7 +6,7 @@ public class Message {
 	public static final int GOODBYE = 1;
 	@org.kie.api.definition.type.Label("消息")
 	private String msg = "test";
-	private int status;
+	private int status=1;
 
 	public Message() {
 		super();

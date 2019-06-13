@@ -3,6 +3,11 @@ package com.neo.drools.repository;
 import com.neo.drools.model.Rule;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface RuleRepository extends JpaRepository<Rule, Long> {
+
     Rule findByRuleKey(String ruleKey);
+
+    List<Rule> findRulesByRuleType(String ruleType);
 }

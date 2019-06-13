@@ -1,7 +1,9 @@
 package com.neo.drools;
 
 import com.neo.drools.model.Message;
+import org.junit.Test;
 import org.kie.api.io.ResourceType;
+import org.kie.api.runtime.KieSession;
 import org.kie.internal.KnowledgeBase;
 import org.kie.internal.KnowledgeBaseFactory;
 import org.kie.internal.builder.KnowledgeBuilder;
@@ -10,6 +12,7 @@ import org.kie.internal.builder.KnowledgeBuilderErrors;
 import org.kie.internal.builder.KnowledgeBuilderFactory;
 import org.kie.internal.io.ResourceFactory;
 import org.kie.internal.runtime.StatefulKnowledgeSession;
+import org.kie.internal.utils.KieHelper;
 
 import java.io.UnsupportedEncodingException;
 
@@ -44,7 +47,6 @@ public class DdLoadTest {
 		StatefulKnowledgeSession kSession = null;
 		try {
 
-
 			KnowledgeBuilder kb = KnowledgeBuilderFactory.newKnowledgeBuilder();
 			//装入规则，可以装入多个
 			kb.add(ResourceFactory.newByteArrayResource(rule.getBytes("utf-8")), ResourceType.DRL);
@@ -55,6 +57,7 @@ public class DdLoadTest {
 				System.out.println(error);
 			}
 			KnowledgeBase kBase = KnowledgeBaseFactory.newKnowledgeBase();
+
 			kBase.addKnowledgePackages(kb.getKnowledgePackages());
 
 			kSession = kBase.newStatefulKnowledgeSession();
@@ -78,7 +81,30 @@ public class DdLoadTest {
 			if (kSession != null)
 				kSession.dispose();
 		}
+	}
 
+
+	@Test
+	public void test(){
+		String rule = "package com.neo.drools\r\n";
+		rule += "import com.neo.drools.model.Message;\r\n";
+		rule += "rule \"rule1\"\r\n";
+		rule += "\twhen\r\n";
+		rule += "Message( status == 1, myMessage : msg )";
+		rule += "\tthen\r\n";
+		rule += "\t\tSystem.out.println( 1+\":\"+myMessage );\r\n";
+		rule += "end\r\n";
+
+		KieHelper helper = new KieHelper();
+		helper.addContent(rule, ResourceType.DRL);
+		KieSession kSession = helper.build().newKieSession();
+		kSession.insert(new Object());
+		Message message = new Message();
+		message.setStatus(1);
+		message.setMsg("hello world to lify");
+		kSession.insert(message);
+		kSession.fireAllRules();
+		kSession.dispose();
 	}
 }
 
